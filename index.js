@@ -49,8 +49,13 @@ async function run() {
       res.send(result);
     });
 
-
+  app.post('/product', async (req, res) => {
+    const product = restaurantCollection.insertOne();
+    let result = await collection.findOne(product);
+    res.send(result);
+  });
     
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
