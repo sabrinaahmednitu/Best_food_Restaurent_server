@@ -33,6 +33,17 @@ async function run() {
       const result = await query.toArray();
       res.send(result);
     });
+
+ app.get('/product', async (req, res) => {
+   const query = restaurantCollection.find();
+   const result = await query.toArray();
+   res.send(result);
+ });
+
+
+
+
+
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
