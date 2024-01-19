@@ -34,16 +34,23 @@ async function run() {
       res.send(result);
     });
 
- app.get('/product', async (req, res) => {
-   const query = restaurantCollection.find();
-   const result = await query.toArray();
-   res.send(result);
- });
+    app.get('/product', async (req, res) => {
+      const query = restaurantCollection.find();
+      const result = await query.toArray();
+      res.send(result);
+    });
+
+    //fetch all data here
+    app.get('/product/:id([0-9a-fA-F]{24})', async (req, res) => {
+      // console.log(req.params.id);
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }; // Convert the id to ObjectId
+      const result = await restaurantCollection.findOne(query);
+      res.send(result);
+    });
 
 
-
-
-
+    
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
