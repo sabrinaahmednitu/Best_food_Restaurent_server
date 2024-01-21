@@ -57,15 +57,38 @@ async function run() {
       const order = req.body;
       const result = await foodOrderCollection.insertOne(order);
       res.send(result);
-    })
+    });
 
-  app.post('/product', async (req, res) => {
-    const product = restaurantCollection.insertOne();
-    let result = await collection.findOne(product);
-    res.send(result);
-  });
-    
+    // Post ordered data try catch
+    // app.post('/foodorder', async (req, res) => {
+    //   try {
+    //     const order = req.body;
 
+    //     // Validate the order data (you can add more validation as needed)
+    //     if (!order || !order.name || !order.Introduction || !order.newPrice) {
+    //       return res.status(400).json({ error: 'Invalid order data' });
+    //     }
+
+    //     // Insert the order into the MongoDB collection
+    //     const result = await foodOrderCollection.insertOne(order);
+
+    //     // Send a more informative response to the client
+    //     res.status(201).json({
+    //       success: true,
+    //       message: 'Order successfully placed',
+    //       orderId: result.insertedId,
+    //     });
+    //   } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: 'Internal Server Error' });
+    //   }
+    // });
+
+    // app.post('/product', async (req, res) => {
+    //   const product = restaurantCollection.insertOne();
+    //   let result = await collection.findOne(product);
+    //   res.send(result);
+    // });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -75,7 +98,7 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
   res.send(
-    '<h1 style="color:red; font-size:70; margin:20% auto; text-align:center;">Mim is my herat and my Crush and my bad grails!</h1>'
+    '<h1 style="font-size:30; margin:20% auto; text-align:center;">Best Food Restaurent</h1>'
   );
 });
 
