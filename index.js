@@ -26,6 +26,9 @@ async function run() {
     const restaurantCollection = client
       .db('best_food_restaurent')
       .collection('food_itemData');
+    const foodOrderCollection = client
+      .db('best_food_restaurent')
+      .collection('food_order');
 
     // users get data client site
     app.get('/users', async (req, res) => {
@@ -48,6 +51,13 @@ async function run() {
       const result = await restaurantCollection.findOne(query);
       res.send(result);
     });
+
+    //post orderd data
+    app.post('/foodorder', async (req, res) => {
+      const order = req.body;
+      const result = await foodOrderCollection.insertOne(order);
+      res.send(result);
+    })
 
   app.post('/product', async (req, res) => {
     const product = restaurantCollection.insertOne();
