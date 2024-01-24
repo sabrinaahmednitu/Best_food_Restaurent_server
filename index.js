@@ -49,18 +49,13 @@ async function run() {
     });
 
     //post orderd data
-    app.post('/foodorder', async (req, res) => {
+    app.post('/foodOrder', async (req, res) => {
       const order = req.body;
       const result = await foodOrderCollection.insertOne(order);
       res.send(result);
     });
 
     
-    // app.post('/product', async (req, res) => {
-    //   const product = restaurantCollection.insertOne();
-    //   let result = await collection.findOne(product);
-    //   res.send(result);
-    // });
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
@@ -70,7 +65,7 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
   res.send(
-    '<h1 style="font-size:30; margin:20% auto; text-align:center;">Best Food Restaurent</h1>'
+    '<h1 style="font-size:40; margin:20% auto; text-align:center;">Best Food Restaurent</h1>'
   );
 });
 
