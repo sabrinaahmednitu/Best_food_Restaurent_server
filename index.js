@@ -55,6 +55,15 @@ async function run() {
       res.send(result);
     });
 
+    //get order data
+    app.get('/cartProducts', async (req, res) => {
+      const query = foodOrderCollection.find();
+      const result = await query.toArray();
+      res.send(result);
+    })
+
+
+
     
   } finally {
     // Ensures that the client will close when you finish/error
