@@ -59,7 +59,7 @@ async function run() {
     app.get('/cartProducts', async (req, res) => {
       const query = foodOrderCollection.find();
       const result = await query.toArray();
-      res.send(result);
+    res.send(result)
     })
 
 
