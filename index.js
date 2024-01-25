@@ -61,11 +61,7 @@ async function run() {
       const result = await query.toArray();
       res.send(result);
     })
-
-
-
-    
-  } finally {
+ } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
   }
