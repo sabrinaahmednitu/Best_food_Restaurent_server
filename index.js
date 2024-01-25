@@ -22,7 +22,6 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     // Send a ping to confirm a successful connection
-
     const restaurantCollection = client
       .db('best_food_restaurent')
       .collection('food_itemData');
@@ -30,13 +29,7 @@ async function run() {
       .db('best_food_restaurent')
       .collection('food_order');
 
-    // users get data client site
-    app.get('/users', async (req, res) => {
-      const query = restaurantCollection.find();
-      const result = await query.toArray();
-      res.send(result);
-    });
-
+    // PRODUCT get data client site
     app.get('/product', async (req, res) => {
       const query = restaurantCollection.find();
       const result = await query.toArray();
@@ -52,43 +45,15 @@ async function run() {
       res.send(result);
     });
 
-    //post orderd data
-    app.post('/foodorder', async (req, res) => {
+    //post order data
+    app.post('/foodOrder', async (req, res) => {
       const order = req.body;
       const result = await foodOrderCollection.insertOne(order);
+      console.log(result)
       res.send(result);
     });
 
-    // Post ordered data try catch
-    // app.post('/foodorder', async (req, res) => {
-    //   try {
-    //     const order = req.body;
-
-    //     // Validate the order data (you can add more validation as needed)
-    //     if (!order || !order.name || !order.Introduction || !order.newPrice) {
-    //       return res.status(400).json({ error: 'Invalid order data' });
-    //     }
-
-    //     // Insert the order into the MongoDB collection
-    //     const result = await foodOrderCollection.insertOne(order);
-
-    //     // Send a more informative response to the client
-    //     res.status(201).json({
-    //       success: true,
-    //       message: 'Order successfully placed',
-    //       orderId: result.insertedId,
-    //     });
-    //   } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ error: 'Internal Server Error' });
-    //   }
-    // });
-
-    // app.post('/product', async (req, res) => {
-    //   const product = restaurantCollection.insertOne();
-    //   let result = await collection.findOne(product);
-    //   res.send(result);
-    // });
+   
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
