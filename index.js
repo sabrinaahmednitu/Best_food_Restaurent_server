@@ -25,7 +25,7 @@ async function run() {
 
     const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
     const foodOrderCollection = client.db('best_food_restaurent').collection('food_order');
-
+    const reviewCollection = client.db("best_food_restaurent").collection("review");
     // users get data client site
     app.get('/users', async (req, res) => {
       const query = restaurantCollection.find();
@@ -61,6 +61,25 @@ async function run() {
       const result = await query.toArray();
       res.send(result);
     })
+
+
+
+
+
+      //review api and post and get api
+  app.post("/review/:id", async (req, res) => {
+    const review = req.body;
+    const result = await reviewCollection.insertOne(review);
+    res.send(result);
+  });
+
+    app.get("/review", async (req, res) => {
+      const query = {};
+      const cursor = reviewCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    }); 
+
  } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
