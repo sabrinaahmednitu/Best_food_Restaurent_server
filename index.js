@@ -21,10 +21,14 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
+    //Restaurants  all collection all api section
     const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
     const foodOrderCollection = client.db('best_food_restaurent').collection('food_order');
     const reviewCollection = client.db("best_food_restaurent").collection("review");
+  //Restaurants Name  all collection all api section
+
+
+
     // PRODUCT get data client site
     app.get('/product', async (req, res) => {
       const query = restaurantCollection.find();
@@ -61,6 +65,13 @@ async function run() {
       const cursor = reviewCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
+    }); 
+
+    app.post("/product", async (req, res) => {
+      // const query = {};
+      // const cursor = reviewCollection.find(query);
+      // const result = await cursor.toArray();
+      // res.send(result);
     }); 
    
   } finally {
