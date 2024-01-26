@@ -62,10 +62,6 @@ async function run() {
       res.send(result);
     })
 
-
-
-
-
       //review api and post and get api
   app.post("/review/:id", async (req, res) => {
     const review = req.body;
