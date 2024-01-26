@@ -62,7 +62,15 @@ async function run() {
       res.send(result);
     })
 
-
+    //cart product delete api
+    app.delete('/cartProducts/:id', async (req, res) => {
+      const id = req.params.id;
+      console.log(id);
+     const query = { id: new ObjectId(id) };
+      const result = await foodOrderCollection.deleteOne(query);
+      console.log(result);
+      res.send(result);
+    });
 
     
   } finally {
