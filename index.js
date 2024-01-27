@@ -21,22 +21,15 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
+    //Restaurants  all collection all api section
+    const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
+    const foodOrderCollection = client.db('best_food_restaurent').collection('food_order');
+    const reviewCollection = client.db("best_food_restaurent").collection("review");
+  //Restaurants Name  all collection all api section
 
-    const restaurantCollection = client
-      .db('best_food_restaurent')
-      .collection('food_itemData');
-    const foodOrderCollection = client
-      .db('best_food_restaurent')
-      .collection('food_order');
 
-    // users get data client site
-    app.get('/users', async (req, res) => {
-      const query = restaurantCollection.find();
-      const result = await query.toArray();
-      res.send(result);
-    });
 
+    // PRODUCT get data client site
     app.get('/product', async (req, res) => {
       const query = restaurantCollection.find();
       const result = await query.toArray();
@@ -52,10 +45,11 @@ async function run() {
       res.send(result);
     });
 
-    //post orderd data
+    //post order data
     app.post('/foodOrder', async (req, res) => {
       const order = req.body;
       const result = await foodOrderCollection.insertOne(order);
+      console.log(result)
       res.send(result);
     });
 
@@ -98,7 +92,7 @@ run().catch(console.dir);
 
 app.get('/', (req, res) => {
   res.send(
-    '<h1 style="font-size:40; margin:20% auto; text-align:center;">Best Food Restaurent</h1>'
+    '<h1 style="font-size:30; margin:20% auto; text-align:center;">Best Food Restaurent</h1>'
   );
 });
 
