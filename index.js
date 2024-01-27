@@ -23,8 +23,12 @@ async function run() {
     await client.connect();
     // Send a ping to confirm a successful connection
 
-    const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
-    const foodOrderCollection = client.db('best_food_restaurent').collection('food_order');
+    const restaurantCollection = client
+      .db('best_food_restaurent')
+      .collection('food_itemData');
+    const foodOrderCollection = client
+      .db('best_food_restaurent')
+      .collection('food_order');
 
     // users get data client site
     app.get('/users', async (req, res) => {
@@ -55,32 +59,36 @@ async function run() {
       res.send(result);
     });
 
+    //review api and post and get api
+    app.post('/review/:id', async (req, res) => {
+      const review = req.body;
+      const result = await reviewCollection.insertOne(review);
+      res.send(result);
+    });
 
-  //review api and post and get api
-  app.post("/review/:id", async (req, res) => {
-    const review = req.body;
-    const result = await reviewCollection.insertOne(review);
-    res.send(result);
-  });
-
-    app.get("/review", async (req, res) => {
+    app.get('/review', async (req, res) => {
       const query = {};
       const cursor = reviewCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
-    })
+    });
+
+    //get order data
+    app.get('/cartProducts', async (req, res) => {
+      const query = foodOrderCollection.find();
+      const result = await query.toArray();
+      res.send(result);
+    });
 
     //cart product delete api
     app.delete('/cartProducts/:id', async (req, res) => {
       const id = req.params.id;
       console.log(id);
-     const query = { id: new ObjectId(id) };
+      const query = { id: new ObjectId(id) };
       const result = await foodOrderCollection.deleteOne(query);
       console.log(result);
       res.send(result);
     });
-
-    
   } finally {
     // Ensures that the client will close when you finish/error
     // await client.close();
