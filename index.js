@@ -70,29 +70,34 @@ async function run() {
         console.log(result)
         res.send(result);
       });
+
+
     //get order data
     app.get('/cartProducts', async (req, res) => {
-      const query = foodOrderCollection.find();
+      const query = foodOrderCollection.find({});
       const result = await query.toArray();
       res.send(result);
     });
 
     //cart product delete api
-/*      app.delete('/cartProducts/:id', async (req, res) => {
+      app.delete('/cartProducts/:id', async (req, res) => {
       const id = req.params.id;
-      console.log(id);
-      const query = id ;
+      console.log(id)
+      const query = {id} ;
       const result = await foodOrderCollection.deleteOne(query);
       console.log(result);
       res.send(result);
     });
- */
+ 
 
-    app.delete('/cartProducts/:id', (req, res) => {
-      const itemId = parseInt(req.params.id);
-      items = items.filter(item => item.id !== itemId);
-      res.json({ success: true });
-    });
+    // app.delete('/cartProducts/:id', (req, res) => {
+    //   const itemId = parseInt(req.params.id);
+    //   console.log(itemId)
+    //   items = items.filter(item => item.id !== itemId);
+    //   res.json({ success: true });
+    // });
+
+
  
   } finally {
     // Ensures that the client will close when you finish/error
