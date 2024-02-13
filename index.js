@@ -7,8 +7,12 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fkjuk.mongodb.net/?retryWrites=true&w=majority`;
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+//nitur database
+// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fkjuk.mongodb.net/?retryWrites=true&w=majority`;
+
+//common database collection
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wdnuziv.mongodb.net/?retryWrites=true&w=majority`;
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -22,12 +26,18 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
     //Restaurants  all collection all api section
-    const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
-    const foodOrderCollection = client.db('best_food_restaurent').collection('food_order');
-    const reviewCollection = client.db("best_food_restaurent").collection("review");
-  //Restaurants Name  all collection all api section
-
-
+    //nitu collection
+    // const restaurantCollection = client.db('best_food_restaurent').collection('food_itemData');
+    const restaurantCollection = client
+      .db('best_Food_Restaurant')
+      .collection('food_itemData');
+    const foodOrderCollection = client
+      .db('best_Food_Restaurant')
+      .collection('food_order');
+    const reviewCollection = client
+      .db('best_Food_Restaurant')
+      .collection('review');
+    //Restaurants Name  all collection all api section
 
     // PRODUCT get data client site
     app.get('/product', async (req, res) => {
@@ -49,7 +59,7 @@ async function run() {
     app.post('/foodOrder', async (req, res) => {
       const order = req.body;
       const result = await foodOrderCollection.insertOne(order);
-      console.log(result)
+      console.log(result);
       res.send(result);
     });
 
@@ -77,7 +87,7 @@ async function run() {
     //cart product delete api
     app.delete('/cartProducts/:id', async (req, res) => {
       const id = req.params.id;
-      const query = { id: new ObjectId(id) };
+      const query = { id };
       const result = await foodOrderCollection.deleteOne(query);
       console.log(result);
       res.send(result);
@@ -99,3 +109,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 // hello world
+
+// DB_USER = best_food_restaurent;
+// DB_PASS = M3sEeXvnk2fAN5xO;
