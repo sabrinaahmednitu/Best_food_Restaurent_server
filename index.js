@@ -7,6 +7,15 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+
+const corsConfig = {
+  origin: '',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}
+app.use(cors(corsConfig))
+app.options("", cors(corsConfig))
+
 //const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.fkjuk.mongodb.net/?retryWrites=true&w=majority`;
   // uri link next link 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.wdnuziv.mongodb.net/?retryWrites=true&w=majority`;
@@ -89,6 +98,18 @@ async function run() {
       res.send(result);
     });
  
+
+    //cart product delete api
+  //   app.delete('/cartProducts/:id', async(req, res)=>{
+  //     const id = req.params.id
+  //     const query = {_id:  new ObjectId(id)};
+  //     const result = await foodOrderCollection.deleteOne(query);
+  //     res.send(result)
+  //     console.log('deleted Products',id)
+  // })
+
+
+
 
     // app.delete('/cartProducts/:id', (req, res) => {
     //   const itemId = parseInt(req.params.id);
